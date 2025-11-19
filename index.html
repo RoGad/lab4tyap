@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛР3 - Гаделия Роман Денисович</title>
+    <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>ЛАБОРАТОРНАЯ РАБОТА №3</h1>
+        <p>Гаделия Роман Денисович</p>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h2 class="section-title">Тестирование</h2>
+            <div class="test-controls">
+                <div class="test-group">
+                    <label for="test-type">Тип тестов:</label>
+                    <select id="test-type" class="test-select">
+                        <option value="">Выберите тип</option>
+                        <option value="test">Тестовые примеры</option>
+                        <option value="control">Контрольные примеры</option>
+                    </select>
+                </div>
+                <div class="test-group">
+                    <label for="test-number">Номер теста:</label>
+                    <select id="test-number" class="test-select" disabled>
+                        <option value="">Сначала выберите тип</option>
+                    </select>
+                </div>
+                <button class="btn" id="loadTest" disabled>Загрузить тест</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Формула</h2>
+            <div class="formula-box">
+                (a · x² + b · x + c) / (d · x + f)
+            </div>
+            <div class="warning-box">
+                ⚠️ <strong>Внимание!</strong> При вводе значений аргументов d и f необходимо следить, чтобы знаменатель
+                (d · x + f) не был равен нулю, иначе деление невозможно!
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Аргументы</h2>
+            <table id="constantsTable">
+                <thead>
+                <tr>
+                    <th>Аргументы</th>
+                    <th>Диапазон аргумента</th>
+                    <th>Дискрет аргумента</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="arg-column">a</td>
+                    <td>[0.01; 1.01]</td>
+                    <td>0.01</td>
+                </tr>
+                <tr>
+                    <td class="arg-column">b</td>
+                    <td>[1; 314]</td>
+                    <td>≈ 3.141592 (π)</td>
+                </tr>
+                <tr>
+                    <td class="arg-column">c</td>
+                    <td>[18; 20]</td>
+                    <td>0.4</td>
+                </tr>
+                <tr>
+                    <td class="arg-column">d</td>
+                    <td>[-0.02; 1.414213]</td>
+                    <td>0.02</td>
+                </tr>
+                <tr>
+                    <td class="arg-column">f</td>
+                    <td>[0.0; 0.4]</td>
+                    <td>0.001</td>
+                </tr>
+                <tr>
+                    <td class="arg-column">x</td>
+                    <td>≈ 1.442249</td>
+                    <td> - </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Ввод данных</h2>
+            <button class="btn" id="openModal">Ввод данных</button>
+
+            <table id="inputTable">
+                <thead>
+                <tr>
+                    <th>Аргумент</th>
+                    <th>Введенное значение</th>
+                    <th>Результат</th>
+                    <th>Погрешность (%)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="arg-column">a</td>
+                    <td id="value-a">-</td>
+                    <td id="result-a">-</td>
+                    <td id="error-a">-</td>
+                </tr>
+                <tr>
+                    <td class="arg-column">b</td>
+                    <td id="value-b">-</td>
+                    <td id="result-b">-</td>
+                    <td id="error-b">-</td>
+                </tr>
+                <tr>
+                    <td class="arg-column">c</td>
+                    <td id="value-c">-</td>
+                    <td id="result-c">-</td>
+                    <td id="error-c">-</td>
+                </tr>
+                <tr>
+                    <td class="arg-column">d</td>
+                    <td id="value-d">-</td>
+                    <td id="result-d">-</td>
+                    <td id="error-d">-</td>
+                </tr>
+                <tr>
+                    <td class="arg-column">f</td>
+                    <td id="value-f">-</td>
+                    <td id="result-f">-</td>
+                    <td id="error-f">-</td>
+                </tr>
+                <tr>
+                    <td class="arg-column">x</td>
+                    <td id="value-x">-</td>
+                    <td id="result-x">-</td>
+                    <td id="error-x">-</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 class="modal-title">Введите значения аргументов</h2>
+
+        <div class="input-group">
+            <label for="input-a">a [0.01 - 1.01]:</label>
+            <input type="number" id="input-a" step="0.01" min="0.01" max="1.01">
+            <span class="error-message" id="error-msg-a"></span>
+        </div>
+
+        <div class="input-group">
+            <label for="input-b">b [1 - 314]:</label>
+            <input type="number" id="input-b" step="3.141592" min="1" max="314">
+            <span class="error-message" id="error-msg-b"></span>
+        </div>
+
+        <div class="input-group">
+            <label for="input-c">c [18 - 20]:</label>
+            <input type="number" id="input-c" step="0.4" min="18" max="20">
+            <span class="error-message" id="error-msg-c"></span>
+        </div>
+
+        <div class="input-group">
+            <label for="input-d">d [-0.02 - 1.414213]:</label>
+            <input type="number" id="input-d" step="0.02" min="-0.02" max="1.414213">
+            <span class="error-message" id="error-msg-d"></span>
+        </div>
+
+        <div class="input-group">
+            <label for="input-f">f [0.0 - 0.4]:</label>
+            <input type="number" id="input-f" step="0.001" min="0" max="0.4">
+            <span class="error-message" id="error-msg-f"></span>
+        </div>
+
+        <div class="input-group">
+            <label for="input-x">x (константа ≈ 1.442249):</label>
+            <input type="number" id="input-x" step="0.001" value="1.442249" readonly>
+            <span class="error-message" id="error-msg-x"></span>
+        </div>
+
+        <div class="button-group">
+            <button class="btn" id="calculate">Вычислить</button>
+            <button class="btn btn-secondary" id="closeModal">Отмена</button>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+<script type="module" src="../src/main.rb"></script>
+</body>
+</html>
